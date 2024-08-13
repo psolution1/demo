@@ -376,11 +376,11 @@ function Home() {
                             <div className="flex items-center justify-center mx-auto text-red-500 bg-red-100 rounded-full size-14 dark:bg-red-500/20">
                               <i className="fa fa-solid fa-users text-red-500"></i>
                             </div>
-                            <h5 className="mt-2 mb-2">
+                            <h6 className="mt-2 mb-2">
                               <span className="counter-value">
                                 {leadcountdata1?.name}
                               </span>
-                            </h5>
+                            </h6>
                             <p className="text-slate-500 dark:text-zink-200">
                               {leadcountdata1?.Value}
                             </p>
@@ -406,11 +406,11 @@ function Home() {
                               <div className="flex items-center justify-center mx-auto  bg-green-100 rounded-full size-14 dark:bg-red-500/20">
                                 <i className="fa fa-solid fa-user text-green-500"></i>
                               </div>
-                              <h5 className="mt-2 mb-2">
+                              <h6 className="mt-2 mb-2">
                                 <span className="counter-value">
                                   {leadcountdata1?.name}
                                 </span>
-                              </h5>
+                              </h6>
                               <p className="text-slate-500 dark:text-zink-200">
                                 {leadcountdata1?.Value}
                               </p>
@@ -435,11 +435,11 @@ function Home() {
                               <div className="flex items-center justify-center mx-auto  bg-green-100 rounded-full size-14 dark:bg-red-500/20">
                                 <i className="fa fa-solid fa-user text-green-500"></i>
                               </div>
-                              <h5 className="mt-2 mb-2">
+                              <h6 className="mt-2 mb-2">
                                 <span className="counter-value">
                                   {leadcountdata1?.name}
                                 </span>
-                              </h5>
+                              </h6>
                               <p className="text-slate-500 dark:text-zink-200">
                                 {leadcountdata1?.Value}
                               </p>
@@ -479,11 +479,11 @@ function Home() {
                                 ></i>
                               )}
                             </div>
-                            <h5 className="mt-2 mb-2">
+                            <h6 className="mt-2 mb-2">
                               <span className="counter-value">
                                 {leadcountdata1?.name}
                               </span>
-                            </h5>
+                            </h6>
                             <p className="text-slate-500 dark:text-zink-200">
                               {leadcountdata1?.Value} - {leadcountdata1?.Value1}
                             </p>
@@ -1085,7 +1085,8 @@ function Home() {
                   </div>
                 </div>
               </div> */}
-              <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+              {/* <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <div className="panel panel-bd bg-white">
                   <div className="panel-heading">
                     <div className="panel-title">
@@ -1119,9 +1120,10 @@ function Home() {
                     </table>
                   </div>
                 </div>
-              </div>
+              </div> */}
+
               <div
-                className="col-xs-12 col-sm-12 col-md-6 col-lg-6 lobipanel-parent-sortable ui-sortable"
+                className="d-none col-xs-12 col-sm-12 col-md-6 col-lg-6 lobipanel-parent-sortable ui-sortable"
                 data-lobipanel-child-inner-id="gjY82eGUtA"
               >
                 <div
@@ -1225,6 +1227,7 @@ function Home() {
                   </div>
                 </div>
               </div>
+              
             </div>
 
             {/* /.row (main row) */}

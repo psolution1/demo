@@ -487,7 +487,7 @@ function SideNav() {
                 </li> */}
 
                     {/* for report  */}
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                       <Link
                         to="#"
                         className="nav-link"
@@ -528,7 +528,7 @@ function SideNav() {
                           </Link>
                         </li>
                       </ul>
-                    </li>
+                    </li> */}
                     {/* for report */}
 
                     <li className="nav-item">
