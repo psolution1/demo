@@ -2372,7 +2372,7 @@ function Setting() {
                                           />
                                         </div>
                                       </div>
-                                      <div className="col-md-3" >
+                                      <div className="col-md-4" >
                                         <div className="form-group">
                                           <select
                                             value={formData?.agent_status}
@@ -2393,7 +2393,7 @@ function Setting() {
                                         </div>
                                       </div>
 
-                                      <div className="col-md-3" style={{display:assigntlnonetype}}>
+                                      <div className="col-md-4" style={{display:assigntlnonetype}}>
                                         <div className="form-group">
                                           <select
                                             value={formData?.role}
@@ -2408,7 +2408,7 @@ function Setting() {
                                           </select>
                                         </div>
                                       </div>
-                                      <div className="col-md-3" style={{display:assigntlnone}}>
+                                      <div className="col-md-4" style={{display:assigntlnone}}>
                                         <div className="form-group">
                                           <select
                                             value={formData?.assigntl}
@@ -2455,10 +2455,10 @@ function Setting() {
                                           </select>
                                         </div>
                                       </div> */}
-                                      <div className="col-md-2">
+                                      <div className="col-md-4">
                                         <div className="form-group">
                                           <button
-                                            className="button-57"
+                                            className="btn-add-user"
                                             type="post"
                                             id="aaction"
                                           >
@@ -2475,7 +2475,7 @@ function Setting() {
                                           </button>
                                         </div>
                                       </div>
-                                      <div className="col-md-3">
+                                      <div className="col-md-3 d-none">
                                         <div className="form-group" style={{ marginTop: '10px' }}>
                                           {  }
                                           <b >Remaining User Count :</b> <b>{hostings["0"]?.Package - agent?.agent?.length}</b>

@@ -4415,9 +4415,9 @@ button.button-57.bg_colores {
   text-align: center;
   border-radius: 3px;
   position: relative;
-    top: 44px;
-    z-index: 999;
-    margin-right: 15px;
+  top: 44px;
+  z-index: 999;
+  margin-right: 15px;
 }
 .btn-sel-one{
   background-color: #000000;
@@ -4428,7 +4428,17 @@ button.button-57.bg_colores {
   text-align: center;
   border-radius: 3px;
   position: relative;
-    top: 44px;
-    z-index: 999;
-    margin-right: 15px;
+  top: 44px;
+  z-index: 999;
+  margin-right: 15px;
+}
+.btn-add-user {
+    background-color: #3399FF;
+    color: #fff !important;
+    padding: 7px 10px;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 3px;
+    border: 0px;
+    width: 100%;
 }
