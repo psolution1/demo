@@ -74,84 +74,81 @@ function Importedlead() {
   return (
     <div>
       <div className="content-wrapper">
-
         <section className="content">
           <div className="container pl-0">
-
-
             <div className="panel-body  pr-0">
-              <div className="row export-data">
-                <div className="col-md-5 col-xs-12 pl-1 pt-2">
-                  <div className="row">
-                    <div className="col-md-4 col-sm-4 col-xs-6">
-                      <div className="btn-group btn-groupese">
-                        <Link className="btn btnes exports" to="/Addlead"> <i className="fa fa-plus" />&nbsp;  Add Lead </Link>
-                      </div>
-                    </div>
-                    <div className="col-md-4 col-sm-4 mobil-nns col-xs-4">
-                      <div className="btn-group btn-groupese">
-                        <button className="btn btnes exports" onClick={advanceserch}>
-                          <i class="fa fa-search" aria-hidden="true"></i>
-                          &nbsp;  Advance </button>
-                      </div>
-                    </div>
-                    <div className="col-md-4 col-sm-4 col-xs-6">
-                      <div className="btn-group btn-groupese">
-                        <Link className="btn btnes exports" to="/import-lead"> <i className="fa fa-download" />&nbsp; Import </Link>
-                      </div>
-
-                    </div>
-
-                  </div>
-                </div>
+            <div className="row export-data">
                 <div className="col-md-7 col-xs-12 ">
-                  <div className="ipades pt-2" >
-                    <form onSubmit={BulkAction}>
-                      <div className="row">
-                        <div className="col-md-3 col-sm-3 col-xs-12">
-                          <div className="btne-group">
-                            <p>Bulk Action</p>
+                  <div className="bulkaction-wrap">
+                    <div className="ipades pt-2" >
+                      <form onSubmit={BulkAction}>
+                        <div className="row">
+                          <div className="col-md-3 col-sm-3 col-xs-12">
+                            <div className="btne-group">
+                              <p>Bulk Action</p>
+                            </div>
+                          </div>
+                          <div className="col-md-4 col-sm-3 col-xs-12">
+                            <select className="form-control"
+                              onChange={e => setLeadStatus({ ...LeadStatus, status: e.target.value })}
+                              name="status" id="status" required >
+                              <option value>Change Status</option>
+                              {Statusdata?.leadstatus?.map((status, key) => {
+                                return (
+                                  <option value={status._id}>
+                                    {status.status_name}
+                                  </option>
+                                );
+                              })}
+                            </select>
+                          </div>
+                          <div className="col-md-3 col-sm-3 col-xs-12">
+                            <select className="form-control"
+                              onChange={e => setLeadagent({ ...Leadagent, agent: e.target.value })}
+                              name="agent" id="agent" required >
+                              <option value>Transfer to</option>
+
+                              {agent?.agent?.map((agents, key) => {
+                                return (
+                                  <option value={agents._id}>
+                                    {agents.agent_name}
+                                  </option>
+                                );
+                              })}
+                            </select>
+                          </div>
+                          <div className="col-md-2 col-sm-2 col-xs-12 pl-0">
+                            <input type="submit" className="button-57" defaultValue="Submit" />
                           </div>
                         </div>
-                        <div className="col-md-4 col-sm-3 col-xs-12">
-                          <select className="form-control"
-                            onChange={e => setLeadStatus({ ...LeadStatus, status: e.target.value })}
-                            name="status" id="status" required >
-                            <option value>Change Status</option>
-                            {Statusdata?.leadstatus?.map((status, key) => {
-                              return (
-                                <option value={status._id}>
-                                  {status.status_name}
-                                </option>
-                              );
-                            })}
-                          </select>
-                        </div>
-                        <div className="col-md-3 col-sm-3 col-xs-12">
-                          <select className="form-control"
-                            onChange={e => setLeadagent({ ...Leadagent, agent: e.target.value })}
-                            name="agent" id="agent" required >
-                            <option value>Transfer to</option>
-
-                            {agent?.agent?.map((agents, key) => {
-                              return (
-                                <option value={agents._id}>
-                                  {agents.agent_name}
-                                </option>
-                              );
-                            })}
-                          </select>
-                        </div>
-                        <div className="col-md-2 col-sm-2 col-xs-12 pl-0">
-                          <input type="submit" className="button-57" defaultValue="Submit" />
-                        </div>
-                      </div>
-                    </form>
+                      </form>
+                    </div>
                   </div>
                 </div>
-
-
-
+                <div className="col-md-5 col-xs-12">
+                  <div className="advfilter-wrap">
+                    <div className="row">
+                      <div className="col-md-4 col-sm-4 mobil-nns col-xs-4">
+                        <div>
+                          <button className="btn-advf" onClick={advanceserch}>
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            &nbsp;  Advance Filter </button>
+                        </div>
+                      </div>
+                      <div className="col-md-4 col-sm-4 col-xs-6">
+                        <div>
+                          <Link className="btn-advf" to="/Addlead"> <i className="fa fa-plus" />&nbsp;  Add Lead </Link>
+                        </div>
+                      </div>
+                      <div className="col-md-4 col-sm-4 col-xs-6">
+                        <div>
+                          <Link className="btn-advf" to="/import-lead"> <i className="fa fa-download" />&nbsp; Import </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
               </div>
 
 

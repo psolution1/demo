@@ -525,121 +525,125 @@ export const AllNewLead = ({ sendDataToParent, dataFromParent }) => {
       <div className="row " style={{ display: dataFromParent }}>
         <div className="col-md-12 advS">
           <form onSubmit={AdvanceSerch}>
-            <div className="row">
-              <div className="col-md-3 ">
-                <div className="form-group">
-                  <select
-                    className="form-control"
-                    onChange={(e) =>
-                      setAdvanceSerch({ ...adSerch, Status: e.target.value })
-                    }
-                    name="Status"
-                  >
-                    <option>Status</option>
-                    {Statusdata?.leadstatus?.map((status, key) => {
-                      return (
-                        <option value={status._id}>{status.status_name}</option>
-                      );
-                    })}
-                  </select>
+            <div className="advfilter-wrap-box">
+              <div className="row justify-content-md-center">
+                <div className="col-md-3 ">
+                  <div className="form-group">
+                    <select
+                      className="form-control"
+                      onChange={(e) =>
+                        setAdvanceSerch({ ...adSerch, Status: e.target.value })
+                      }
+                      name="Status"
+                    >
+                      <option>Status</option>
+                      {Statusdata?.leadstatus?.map((status, key) => {
+                        return (
+                          <option value={status._id}>{status.status_name}</option>
+                        );
+                      })}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div className="col-md-3">
-                <div className="form-group">
-                  <select
-                    className="form-control"
-                    onChange={(e) =>
-                      setAdvanceSerch({ ...adSerch, agent: e.target.value })
-                    }
-                    name="agent"
-                  >
-                    <option>Agent</option>
-                    <option value="Unassigne">Unassigned Agent</option>
-                    {agent?.agent?.map((agents, key) => {
-                      return (
-                        <option value={agents._id}>{agents.agent_name}</option>
-                      );
-                    })}
-                  </select>
+                <div className="col-md-3">
+                  <div className="form-group">
+                    <select
+                      className="form-control"
+                      onChange={(e) =>
+                        setAdvanceSerch({ ...adSerch, agent: e.target.value })
+                      }
+                      name="agent"
+                    >
+                      <option>Agent</option>
+                      <option value="Unassigne">Unassigned Agent</option>
+                      {agent?.agent?.map((agents, key) => {
+                        return (
+                          <option value={agents._id}>{agents.agent_name}</option>
+                        );
+                      })}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div className="col-md-3">
-                <div className="form-group">
-                  <input
-                    type="date"
-                    placeholder="Date To"
-                    className="form-control"
-                    onChange={(e) =>
-                      setAdvanceSerch({ ...adSerch, startDate: e.target.value })
-                    }
-                    name="startDate"
-                  />
+                <div className="col-md-3">
+                  <div className="form-group">
+                    <input
+                      type="date"
+                      placeholder="Date To"
+                      className="form-control"
+                      onChange={(e) =>
+                        setAdvanceSerch({ ...adSerch, startDate: e.target.value })
+                      }
+                      name="startDate"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="col-md-3">
-                <div className="form-group">
-                  <input
-                    type="date"
-                    placeholder="Date Till"
-                    onChange={(e) =>
-                      setAdvanceSerch({ ...adSerch, endDate: e.target.value })
-                    }
-                    className="form-control"
-                    name="endDate"
-                  />
+                <div className="col-md-3">
+                  <div className="form-group">
+                    <input
+                      type="date"
+                      placeholder="Date Till"
+                      onChange={(e) =>
+                        setAdvanceSerch({ ...adSerch, endDate: e.target.value })
+                      }
+                      className="form-control"
+                      name="endDate"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div className="col-md-3">
-                <div className="form-group">
-                  <button
-                    type="submit"
-                    className="btn btnes btn-block btn-success form-control "
-                  >
-                    Submit
-                  </button>
+                <div className="col-md-3">
+                  <div className="form-group">
+                    <button
+                      type="submit"
+                      className="btn-advf-sub"
+                    >
+                      Submit
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <div className="col-md-3">
-                <div className="form-group">
-                  <button
-                    onClick={Refresh}
-                    className="btn btnes btn-block btn-success form-control "
-                  >
-                    Refresh
-                  </button>
+                <div className="col-md-3">
+                  <div className="form-group">
+                    <button
+                      onClick={Refresh}
+                      className="btn-advf-refresh"
+                    >
+                      Refresh
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </form>
         </div>
       </div>
-      <div className="row" style={{ paddingBottom: "23px" }}>
+      <div className="row">
         <div className="col-md-12 advS">
-          {isAdmin1 ? (
-            <>
-              <button
-                className="btn btn-sm shadow_btn btn-success"
-                onClick={exportToPDF}
-              >
-                Export PDF
-              </button>
-              <button
-                className="btn btn-sm shadow_btn btn-success"
-                onClick={exportToExcel}
-              >
-                Export Excel
-              </button>
-              <button
-                className="btn shadow_btn btn-sm btn-danger"
-                onClick={DeleteSelected}
-              >
-                Delete
-              </button>{" "}
-            </>
-          ) : (
-            <></>
-          )}
+        <div className="export-wrap">
+            {isAdmin1 ? (
+              <>
+                <button
+                  className="btn-ecport-pdf"
+                  onClick={exportToPDF}
+                >
+                  Export PDF
+                </button>
+                <button
+                  className="btn-ecport-xls"
+                  onClick={exportToExcel}
+                >
+                  Export Excel
+                </button>
+                <button
+                  className="btn-ecport-del"
+                  onClick={DeleteSelected}
+                >
+                  Delete
+                </button>{" "}
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
       </div>
 
@@ -670,13 +674,13 @@ export const AllNewLead = ({ sendDataToParent, dataFromParent }) => {
           {isAdmin1 ? (
             <>
               <button
-                className="btn btn-sm shadow_btn btn-success"
+                className="btn-sel-all"
                 onClick={handleCheckAll1}
               >
                 Select All
               </button>
               <button
-                className="btn btn-sm shadow_btn btn-success"
+                className="btn-sel-one"
                 onClick={handleCheckAll}
               >
                 Select Per Page
@@ -698,13 +702,13 @@ export const AllNewLead = ({ sendDataToParent, dataFromParent }) => {
             <>
               {" "}
               <button
-                className="btn btn-sm shadow_btn btn-success"
+                className="btn-sel-all"
                 onClick={handleCheckAll1}
               >
                 Select All
               </button>
               <button
-                className="btn btn-sm shadow_btn btn-success"
+                className="btn-sel-one"
                 onClick={handleCheckAll}
               >
                 Select Per Page
