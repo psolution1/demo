@@ -1821,7 +1821,6 @@ select {
   position: relative;
   top: 8px;
   font-size: 15px;
-  float: right;
 }
 
 .dataTables_wrapper .dataTables_filter {
@@ -4284,4 +4283,152 @@ button.button-57.bg_colores {
   background-color: #fff;
   color: #f3d13a;
 }
+.bulkaction-wrap{
+  border: 1px solid #f1f1f1;
+  padding: 10px 10px 10px 10px;
+    border-radius: 4px;
+    background-color: #fff;
+}
+.advfilter-wrap{
+  border: 1px solid #f1f1f1;
+  padding: 15px 10px 15px 10px;
+    border-radius: 4px;
+    background-color: #fff;
+}
+.advfilter-wrap-box{
+  border: 1px solid #f1f1f1;
+  padding: 10px 10px 0px 10px;
+    border-radius: 4px;
+    background-color: #fff;
+}
+.advfilter-wrap a{
+  width: 100%;
+  display: block;
+}
+.advfilter-wrap button{
+  width: 100%;
+  display: block;
+  border: 0px;
+}
+.btn-advf {
+  background-color: #000000;
+  border-color: #070707;
+  color: #fff !important;
+  padding: 7px 10px;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 3px;
+}
+.bulkaction-wrap input.button-57 {
+  background-color: #3399FF;
+  border: 0;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 400;
+  outline: 0;
+  padding: 8px 20px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  overflow: hidden;
+  box-shadow: rgba(255, 255, 255, .2) 0 3px 15px inset, rgba(0, 0, 0, .1) 0 3px 5px, rgba(0, 0, 0, .1) 0 10px 13px;
+  transform: scale(1.05);
+}
 
+.advfilter-wrap-box{
+  border: 1px solid #f1f1f1;
+  padding: 10px 10px 0px 10px;
+    border-radius: 4px;
+    background-color: #fff;
+}
+.advfilter-wrap-box button{
+  width: 100%;
+  display: block;
+  border: 0px;
+}
+.btn-advf-sub {
+  background-color: #369aff;
+  border-color: #070707;
+  color: #fff !important;
+  padding: 7px 10px;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 3px;
+}
+.btn-advf-refresh {
+  background-color: #000000;
+  border-color: #070707;
+  color: #fff !important;
+  padding: 7px 10px;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 3px;
+}
+.export-wrap{
+  padding: 0px 0px 0px 0px;
+  text-align: right;
+}
+.export-wrap button{
+  border: 0px;
+  margin-left: 15px;
+}
+.btn-ecport-pdf {
+  background-color: #369aff;
+  border-color: #070707;
+  color: #fff !important;
+  padding: 7px 10px;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 3px;
+}
+.btn-ecport-xls{
+  background-color: #000000;
+  border-color: #070707;
+  color: #fff !important;
+  padding: 7px 10px;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 3px;
+}
+.btn-ecport-del{
+  background-color: #CC0000;
+  border-color: #CC0000;
+  color: #fff !important;
+  padding: 7px 10px;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 3px;
+}
+.btn-sel-all{
+  background-color: #369aff;
+  border: 0px;
+  color: #fff !important;
+  padding: 7px 10px;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 3px;
+  position: relative;
+    top: 44px;
+    z-index: 999;
+    margin-right: 15px;
+}
+.btn-sel-one{
+  background-color: #000000;
+  border: 0px;
+  color: #fff !important;
+  padding: 7px 10px;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 3px;
+  position: relative;
+    top: 44px;
+    z-index: 999;
+    margin-right: 15px;
+}
