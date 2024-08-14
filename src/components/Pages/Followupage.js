@@ -26,6 +26,7 @@ export default function Followupage() {
   const { leadSourcedata } = useSelector((state) => state.leadSource);
 
   const { followup } = useSelector((state) => state.followup);
+  const followupDesc = followup?.followuplead?.[0]?.followup_desc || '';
   const { lostreason } = useSelector(
     (state) => state.lostreasonSlice?.LostReasondata
   );
@@ -157,6 +158,16 @@ export default function Followupage() {
 
   const submitFollowup = async (e) => {
     e.preventDefault();
+    const followupDateValue = e.target.elements.followup_date?.value;
+
+    // Parse the input date value into a Date object in UTC
+    // This prevents the browser from adjusting it based on the local timezone
+    const [date, time] = followupDateValue.split("T");
+    const [year, month, day] = date.split("-");
+    const [hour, minute] = time.split(":");
+
+    // Construct a new ISO string without any timezone adjustment
+    const adjustedFollowupDate = new Date(year, month - 1, day, hour, minute).toISOString().slice(0, 16);
 
     const updatedLeadData = await {
       ...data,
@@ -164,6 +175,7 @@ export default function Followupage() {
       commented_by: e.target.elements.commented_by?.value,
       assign_to_agent: e.target.elements.assign_to_agent?.value,
       followup_status_id: e.target.elements.followup_status_id?.value,
+      followup_date: adjustedFollowupDate,
     };
     if (updatedLeadData.lead_id) {
       const aaaa = await dispatch(addfollowup(updatedLeadData));
@@ -727,6 +739,7 @@ export default function Followupage() {
                                             ...data,
                                             followup_date: e.target.value,
                                           })
+                                          
                                         }
                                         type="datetime-local"
                                         name="followup_date"
@@ -753,7 +766,9 @@ export default function Followupage() {
                                             followup_desc: e.target.value,
                                           })
                                         }
+                                        
                                         value={data?.followup_desc}
+                                        // value={followupDesc}
                                         // onChange={(e) =>
                                         //   setLocalDetails({
                                         //     ...localDetails,
@@ -763,7 +778,8 @@ export default function Followupage() {
                                         name="followup_desc"
                                         //value={localDetails?.massage_of_calander}
                                         id="followup_desc"
-                                        placeholder="Enter description..."
+                                        // placeholder="Enter description..."
+                                        placeholder={followupDesc}
                                       />
                                     </div>
                                   </div>
@@ -856,7 +872,7 @@ export default function Followupage() {
                             data-toggle="tab"
                             aria-expanded="true"
                           >
-                            <span className="tabnone">Attachment </span>
+                            {/* <span className="tabnone">Attachment </span> */}
                             <i className="fa fa-paperclip" aria-hidden="true" />
                           </a>
                         </li>

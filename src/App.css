@@ -23,7 +23,11 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+@keyframes blink {
+  0% { background-color: red; }
+  50% { background-color: pink; } /* You can also use yellow if preferred */
+  100% { background-color: red; }
+}
 .App-link {
   color: #61dafb;
 }

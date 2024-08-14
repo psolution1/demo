@@ -241,7 +241,15 @@ export default function AllFollowupstable({
       );
     }
   };
+  const [currentTime, setCurrentTime] = useState(new Date());
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000); // Update every second
+
+    return () => clearInterval(interval);
+  }, []);
   useEffect(() => {
     sendDataToParent(selectedRowIds1);
   }, [selectedRowIds1]);
@@ -357,22 +365,75 @@ export default function AllFollowupstable({
         return "bg-default"; // Default class for other statuses
     }
   };
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes blink {
+        0% { background-color: red; }
+        50% { background-color: pink; } /* or yellow */
+        100% { background-color: red; }
+      }
+    `;
+    document.head.appendChild(style);
 
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
   const adminColumns = [
     {
-      name: "Agent",
+      name: "Agenttt",
       selector: (row) => row?.agent_details[0]?.agent_name,
       sortable: true,
     },
+    // {
+    //   name: "Followup date",
+    //   selector: (row) =>
+    //     row?.followup_date
+    //       ? //  row?.followup_date && format(new Date(datafomate(row?.followup_date)), 'dd/MM/yy hh:mm:ss')
+    //         getdatetimeformate(row?.followup_date)
+    //       : "",
+    //   sortable: true,
+    // },
     {
       name: "Followup date",
-      selector: (row) =>
-        row?.followup_date
-          ? //  row?.followup_date && format(new Date(datafomate(row?.followup_date)), 'dd/MM/yy hh:mm:ss')
-            getdatetimeformate(row?.followup_date)
-          : "",
+      selector: (row) => row?.followup_date ? getdatetimeformate(row?.followup_date) : "",
       sortable: true,
+      cell: (row) => {
+        const followupDate = new Date(row?.followup_date);
+        const currentTime = new Date();
+  
+        // Extract date and time components
+        const followupDateOnly = new Date(followupDate.toDateString());
+        const currentDateOnly = new Date(currentTime.toDateString());
+  
+        const isDatePassed = followupDateOnly < currentDateOnly;
+        const isTimePassed = followupDate <= currentTime;
+        const isBlinking = isDatePassed || (followupDateOnly.getTime() === currentDateOnly.getTime() && isTimePassed);
+  
+        // Define blinking CSS
+        const blinkingStyles = {
+          whiteSpace: 'normal',
+          overflow: 'visible',
+          maxWidth: '200px',
+          animation: isBlinking ? 'blink 1s step-start infinite' : 'none',
+          backgroundColor: isBlinking ? 'red' : 'transparent',
+          color: isBlinking ? 'white' : 'inherit',
+          padding: '4px',
+          borderRadius: '4px',
+        };
+  
+        return (
+          <div
+            style={blinkingStyles}
+            title={row?.followup_date}
+          >
+            {row?.followup_date ? getdatetimeformate(row?.followup_date) : ""}
+          </div>
+        );
+      },
     },
+  
     {
       name: <div style={{ display: "none" }}>Last Comment</div>,
       selector: (row) => row?.description,
@@ -408,16 +469,65 @@ export default function AllFollowupstable({
       sortable: true,
     },
   ];
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @keyframes blink {
+      0% { background-color: red; }
+      50% { background-color: pink; } /* or yellow */
+      100% { background-color: red; }
+    }
+  `;
+  document.head.appendChild(style);
+
+
 
   const userColumns = [
+    // {
+    //   name: "Followup date",
+    //   selector: (row) =>
+    //     row?.followup_date
+    //       ? // row?.followup_date && format(new Date(datafomate(row?.followup_date)), 'dd/MM/yy hh:mm:ss')
+    //         row?.followup_date
+    //       : "",
+    //   sortable: true,
+    // },
     {
       name: "Followup date",
-      selector: (row) =>
-        row?.followup_date
-          ? // row?.followup_date && format(new Date(datafomate(row?.followup_date)), 'dd/MM/yy hh:mm:ss')
-            row?.followup_date
-          : "",
+      selector: (row) => row?.followup_date ? getdatetimeformate(row?.followup_date) : "",
       sortable: true,
+      cell: (row) => {
+        const followupDate = new Date(row?.followup_date);
+        const currentTime = new Date();
+  
+        // Extract date and time components
+        const followupDateOnly = new Date(followupDate.toDateString());
+        const currentDateOnly = new Date(currentTime.toDateString());
+  
+        const isDatePassed = followupDateOnly < currentDateOnly;
+        const isTimePassed = followupDate <= currentTime;
+        const isBlinking = isDatePassed || (followupDateOnly.getTime() === currentDateOnly.getTime() && isTimePassed);
+  
+        // Define blinking CSS
+        const blinkingStyles = {
+          whiteSpace: 'normal',
+          overflow: 'visible',
+          maxWidth: '200px',
+          animation: isBlinking ? 'blink 1s step-start infinite' : 'none',
+          backgroundColor: isBlinking ? 'red' : 'transparent',
+          color: isBlinking ? 'white' : 'inherit',
+          padding: '4px',
+          borderRadius: '4px',
+        };
+  
+        return (
+          <div
+            style={blinkingStyles}
+            title={row?.followup_date}
+          >
+            {row?.followup_date ? getdatetimeformate(row?.followup_date) : ""}
+          </div>
+        );
+      },
     },
     {
       name: <div style={{ display: "none" }}>Last Comment</div>,
