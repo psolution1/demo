@@ -74,7 +74,8 @@ function Addlead() {
       if (aaaa.payload.success == true) {
         toast.success(aaaa.payload.message);
         if (buttonValue === "save") {
-          navigate("/leads");
+          // navigate("/leads");
+          navigate("/Followupleads");
         }
       } else {
         toast.warn(aaaa.payload?.message);
@@ -89,7 +90,8 @@ function Addlead() {
       if (aaaa.payload.success == true) {
         toast.success(aaaa.payload.message);
         if (buttonValue === "save") {
-          navigate("/leads");
+          // navigate("/leads");
+          navigate("/Followupleads");
         }
       } else {
         toast.warn(aaaa.payload?.message);
@@ -142,7 +144,7 @@ function Addlead() {
     return <Loader />;
   }
 
-
+  const userRole = localStorage.getItem("role");
 
   return (
     <div>
@@ -156,7 +158,7 @@ function Addlead() {
                   <h4>Add Lead </h4>
                 </div>
 
-                <button
+                {/* <button
                   type="button"
                   style={{ float: "right" }}
                   className="btn btn-sm btn-primaryess"
@@ -167,7 +169,22 @@ function Addlead() {
                      <i className="fa fa-download" />
                     &nbsp; Import{" "}
                   </Link>
-                </button>
+                </button> */}
+
+              {(userRole === "admin" || userRole === "TeamLeader") && (
+                    <button
+                      type="button"
+                      style={{ float: "right" }}
+                      className="btn btn-sm btn-primaryess"
+                      data-toggle="modal"
+                      data-target="#custome"
+                    >
+                      <Link className="btn btnes exports" to="/import-lead">
+                        <i className="fa fa-download" />
+                        &nbsp; Import{" "}
+                      </Link>
+                    </button>
+                  )}
               </div>
 
               <div className="panel-body bg-white mt-4">
@@ -570,7 +587,7 @@ function Addlead() {
                                 </div>
 
                                 <div className="col-md-4 pd-top mobile-hids">
-                                  <label htmlFor="state">State </label>
+                                  <label htmlFor="state">Stateee </label>
                                 </div>
                                 <div className="col-md-8 mob-left-right col-xs-12  form-group">
                                   <select

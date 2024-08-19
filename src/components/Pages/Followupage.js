@@ -1279,8 +1279,8 @@ export default function Followupage() {
                                           cols={40}
                                           rows={3}
                                           id="full_address"
-                                          // value={localDetails.full_address || ''}
-                                          // onChange={(e) => setLocalDetails({ ...localDetails, full_address: e.target.value })}
+                                          value={localDetails.full_address || ''}
+                                          onChange={(e) => setLocalDetails({ ...localDetails, full_address: e.target.value })}
                                           className="form-control"
                                           defaultValue={""}
                                         />
