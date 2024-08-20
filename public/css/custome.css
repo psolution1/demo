@@ -1278,7 +1278,7 @@ h4 {
   max-width: 150px;
   display: block;
   margin: 0 auto;
-
+float: right;
 }
 
 .user-panel .info p {
@@ -4471,7 +4471,80 @@ button.button-57.bg_colores {
   font-weight: 700;
 }
 
+.edit-followup button {
+  display: block;
+  border: 0px;
+  width: 100%;
+}
+.btn-whapp {
+  background-color: #369aff;
+  border-color: #369aff;
+  color: #fff !important;
+  padding: 7px 10px;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 3px;
+}
+.btn-bsms {
+  background-color: #000;
+  border-color: #000;
+  color: #fff !important;
+  padding: 7px 10px;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 3px;
+}
+.head-editfollowup{
+  position: relative;
+}
+.head-editfollowup p{
+  font-size: 18px;
+    color: #000;
+    font-weight: 700;
+}
+.edit-followup .card-headers {
+  padding: 5px 5px;
+}
+
 @media (max-width: 768px) {
+  .card-body {
+    padding: 10px 0px;
+}
+label {
+  margin-bottom: 5px;
+  font-size: 13px;
+}
+.edit-followup label {
+  font-size: 13px;
+}
+  input.button-57 {
+    font-size: 14px;
+    padding: 5px 15px;
+}
+  .max-widyhsSubmit {
+    max-width: 150px;
+    display: block;
+    margin: 0 auto;
+  float: none;
+  }
+  .btn-whapp {
+    background-color: #369aff;
+    border-color: #369aff;
+    color: #fff !important;
+    padding: 4px 4px;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 3px;
+}
+.btn-bsms {
+  background-color: #000;
+  border-color: #000;
+  color: #fff !important;
+  padding: 4px 4px;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 3px;
+}
   .form-control {
     display: block;
     width: 100%;

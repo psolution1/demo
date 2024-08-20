@@ -40,9 +40,15 @@ export const AllNewLead = ({ sendDataToParent, dataFromParent }) => {
           "mongodb-url": DBuUrl,
         },
       });
+  const leads = responce?.data?.lead || [];
 
-      setleads(responce?.data?.lead);
-      setfilterleads(responce?.data?.lead);
+// Filter out leads where type is 'excel'
+const filteredLeads = leads.filter(lead => lead.type !== 'excel');
+
+// Set the filtered leads
+setleads(filteredLeads);
+setfilterleads(filteredLeads);
+
       return responce?.data?.message;
     } catch (error) {
       const message = await error?.response?.data?.message;
@@ -527,7 +533,7 @@ export const AllNewLead = ({ sendDataToParent, dataFromParent }) => {
           <form onSubmit={AdvanceSerch}>
             <div className="advfilter-wrap-box">
               <div className="row justify-content-md-center">
-                <div className="col-md-3 col-6">
+              <div className="col-md-3 col-6">
                   <div className="form-group">
                     <select
                       className="form-control"
