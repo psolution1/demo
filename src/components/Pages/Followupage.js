@@ -1,5 +1,7 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import React, { Fragment, useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { format } from "date-fns";
@@ -16,6 +18,11 @@ import { toast } from "react-toastify";
 import { getAllLostReason } from "../../features/lostreasonSlice";
 import axios from "axios";
 export default function Followupage() {
+  const [dataa, setData] = useState({
+    followup_date: new Date(), // Initialize with the current date
+  });
+
+
   const apiUrl = process.env.REACT_APP_API_URL;
   const DBuUrl = process.env.REACT_APP_DB_URL;
   const navigate = useNavigate();
@@ -64,6 +71,8 @@ export default function Followupage() {
     dispatch(getAllProductService());
     dispatch(getAllLeadSource());
     getStateByCountry(localDetails.country);
+    console.log(localDetails.country)
+
     if (localStorage.getItem("role") === "admin") {
       dispatch(getAllAgent());
     }
@@ -88,6 +97,12 @@ export default function Followupage() {
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (localDetails.country) {
+      getStateByCountry(localDetails.country);
+    }
+  }, [localDetails.country]);
+
   const handleInputChange = (e) => {
     setLocalDetails({
       ...localDetails,
@@ -97,7 +112,7 @@ export default function Followupage() {
   };
 
   const getStateByCountry = (data) => {
-    
+    console.log('sdfds', data)
     dispatch(getStatebycountry(data));
   };
 
@@ -158,7 +173,7 @@ export default function Followupage() {
     }
   };
 
-  const submitFollowup = async (e) => {
+  const submitFollowup1 = async (e) => {
     e.preventDefault();
     const followupDateValue = e.target.elements.followup_date?.value;
 
@@ -191,6 +206,50 @@ export default function Followupage() {
       toast.warn("all field required");
     }
   };
+
+  const submitFollowup = async (e) => {
+    e.preventDefault();
+  
+    // Retrieve followup_date from data
+    const followupDate = dataa.followup_date;
+  
+    // Check if followupDate is defined and not null
+    if (!followupDate) {
+      toast.warn("Followup date is required");
+      return;
+    }
+  
+    // Convert followupDate to ISO string without timezone adjustment
+    const adjustedFollowupDate = new Date(followupDate).toISOString().slice(0, 16);
+  
+    const updatedLeadData = {
+      ...data,
+      lead_id: e.target.lead_id.value,
+      commented_by: e.target.elements.commented_by?.value,
+      assign_to_agent: e.target.elements.assign_to_agent?.value,
+      followup_status_id: e.target.elements.followup_status_id?.value,
+      followup_date: adjustedFollowupDate,
+    };
+  
+    if (updatedLeadData.lead_id) {
+      try {
+        const response = await dispatch(addfollowup(updatedLeadData));
+        if (response.payload.success === true) {
+          navigate(-1);
+          toast.success(response.payload?.message);
+        } else {
+          toast.warn(response.payload?.message);
+        }
+      } catch (error) {
+        console.error("Error submitting followup:", error);
+        toast.error("An error occurred while submitting followup");
+      }
+    } else {
+      toast.warn("All fields are required");
+    }
+  };
+  
+
 
   /////////for attechment //////
   const [file, setFile] = useState(null);
@@ -338,46 +397,29 @@ export default function Followupage() {
           {loading ? (
             <Loader />
           ) : (
-            <div className="panel-bodyess pt-3 edit-followup">
+            <div className="panel-bodyess pt-3">
               <div className="col-sm-12 pl-0">
                 <div className="panel panel-bd lobidrag lobipanel">
                   <div className="panel-heading">
                     <div className="row">
-
-                      <div className="col-4 col-md-8 col-xs-6">
-                        <div className="btn-group head-editfollowup">
+                      <div className="col-12 col-md-6 col-xs-6">
+                        <div className="btn-group">
                           <p>Followup</p>
                         </div>
                       </div>
 
-                      <div className="col-8 col-md-4 col-xs-6">
-                        <div className="row">
-                          <div className="col-6 col-md-6">
-                            <div className="form-group">
-                              <button
-                                className="btn-whapp"
-                                data-toggle="modal"
-                                data-target="#myModal"
-                              >
-                                {" "}
-                                Whatsapp
-                              </button>
-                            </div>
-                          </div>
-                          <div className="col-6 col-md-6">
-                            <div className="form-group">
-                              <button
-                                className="btn-bsms"
-                                data-toggle="modal"
-                                data-target="#myModal1"
-                              >
-                                Send SMS
-                              </button>
-                            </div>
-                          </div>
+                      <div className="col-12 col-md-2 col-xs-2">
+                        <div className="form-group">
+                          <button
+                            className="button-wa pull-right "
+                            data-toggle="modal"
+                            data-target="#myModal"
+                          >
+                            {" "}
+                            Whatsapp
+                          </button>
                         </div>
                       </div>
-
 
                       <div id="myModal" class="modal fade" role="dialog">
                         <div className="modal-dialog">
@@ -449,7 +491,17 @@ export default function Followupage() {
                           </div>
                         </div>
                       </div>
-
+                      <div className="col-12 col-md-2 col-xs-2">
+                        <div className="form-group">
+                          <button
+                            className="button-57 pull-right"
+                            data-toggle="modal"
+                            data-target="#myModal1"
+                          >
+                            Send SMS
+                          </button>
+                        </div>
+                      </div>
                       <div id="myModal1" class="modal fade" role="dialog">
                         <div className="modal-dialog">
                           <div className="modal-content">
@@ -522,8 +574,6 @@ export default function Followupage() {
                       </div>
                     </div>
                   </div>
-
-
                   <div className="panel-body bg-white">
                     <div className="cards">
                       <div className="card-headers lead_fallow">
@@ -533,10 +583,10 @@ export default function Followupage() {
                               <div className="row">
                                 <div className="col-md-6 left-border">
                                   <div className="row bottoms-border">
-                                    <div className="col-md-4 col-xs-4 col-4">
+                                    <div className="col-md-4 col-xs-4">
                                       <lable>Full Name</lable>
                                     </div>
-                                    <div className="col-md-8 col-xs-8 col-8">
+                                    <div className="col-md-8 col-xs-8">
                                       <input
                                         type="hidden"
                                         name="lead_id"
@@ -552,28 +602,28 @@ export default function Followupage() {
                                   </div>
 
                                   <div className="row bottoms-border">
-                                    <div className="col-md-4 col-xs-4 col-4">
+                                    <div className="col-md-4 col-xs-4">
                                       <lable>Email Id</lable>
                                     </div>
-                                    <div className="col-md-8 col-xs-8 col-8">
+                                    <div className="col-md-8 col-xs-8">
                                       {localDetails.email_id || ""}
                                     </div>
                                   </div>
 
                                   <div className="row bottoms-border">
-                                    <div className="col-md-4 col-xs-4 col-4">
+                                    <div className="col-md-4 col-xs-4">
                                       <lable>Contact No.</lable>
                                     </div>
-                                    <div className="col-md-8 col-xs-8 col-8">
+                                    <div className="col-md-8 col-xs-8">
                                       {/* {foundObject?.contact_no} */}
                                       {localDetails.contact_no || ""}
                                     </div>
                                   </div>
                                   <div className="row bottoms-border">
-                                    <div className="col-md-4 col-xs-4 col-4">
+                                    <div className="col-md-4 col-xs-4">
                                       <lable>Service</lable>
                                     </div>
-                                    <div className="col-md-8 col-xs-8 col-8">
+                                    <div className="col-md-8 col-xs-8">
                                       {
                                         foundObject?.service_details[0]
                                           ?.product_service_name
@@ -581,10 +631,10 @@ export default function Followupage() {
                                     </div>
                                   </div>
                                   <div className="row bottoms-border">
-                                    <div className="col-md-4 col-xs-4 col-4">
+                                    <div className="col-md-4 col-xs-4">
                                       <lable>Lead Source</lable>
                                     </div>
-                                    <div className="col-md-8 col-xs-8 col-8">
+                                    <div className="col-md-8 col-xs-8">
                                       {
                                         foundObject?.lead_source_details[0]
                                           ?.lead_source_name
@@ -592,14 +642,14 @@ export default function Followupage() {
                                     </div>
                                   </div>
                                   <div className="row bottoms-border none-border">
-                                    <div className="col-md-4 col-xs-4 pd-top col-4">
+                                    <div className="col-md-4 col-xs-4 pd-top">
                                       <lable>Agent Name </lable>
                                     </div>
-                                    <div className="col-md-8 col-xs-8 col-8">
+                                    <div className="col-md-8 col-xs-8">
                                       <select
                                         disabled={
                                           localStorage.getItem("role") ===
-                                          "user"
+                                            "user"
                                             ? true
                                             : false
                                         }
@@ -622,7 +672,7 @@ export default function Followupage() {
                                             <option
                                               selected={
                                                 foundObject?.assign_to_agent ===
-                                                agents._id
+                                                  agents._id
                                                   ? "selected"
                                                   : ""
                                               }
@@ -639,10 +689,10 @@ export default function Followupage() {
                                 </div>
                                 <div className="col-md-6">
                                   <div className="row status-bottom">
-                                    <div className="col-md-4 col-xs-4 pd-top col-4">
+                                    <div className="col-md-4 col-xs-4 pd-top">
                                       <lable>Status</lable>
                                     </div>
-                                    <div className="col-md-8 col-xs-8 col-8">
+                                    <div className="col-md-8 col-xs-8">
                                       <select
                                         onChange={setStatus}
                                         className="form-control"
@@ -657,7 +707,7 @@ export default function Followupage() {
                                               <option
                                                 selected={
                                                   foundObject?.status ===
-                                                  status._id
+                                                    status._id
                                                     ? "selected"
                                                     : ""
                                                 }
@@ -701,7 +751,7 @@ export default function Followupage() {
                                             <option
                                               selected={
                                                 foundObject?.status ===
-                                                lostreason1?._id
+                                                  lostreason1?._id
                                                   ? "selected"
                                                   : ""
                                               }
@@ -718,10 +768,10 @@ export default function Followupage() {
                                     <>
                                       {" "}
                                       <div className="row status-bottom">
-                                        <div className="col-md-4 pd-top col-xs-4 col-4">
+                                        <div className="col-md-4 pd-top col-xs-4">
                                           Won Amount Of Lead
                                         </div>
-                                        <div className="col-md-8 col-xs-8 col-8">
+                                        <div className="col-md-8 col-xs-8">
                                           <input
                                             disabled
                                             value={
@@ -740,17 +790,32 @@ export default function Followupage() {
                                   )}
 
                                   <div className="row status-bottom">
-                                    <div className="col-md-4 pd-top col-xs-4 col-4">
+                                    <div className="col-md-4 pd-top col-xs-4">
                                       Followup
                                     </div>
-                                    <div className="col-md-8 col-xs-8 col-8">
+                                    <div className="col-md-8 col-xs-8">
+                                        <DatePicker
+                                          selected={dataa.followup_date}
+                                          onChange={(date) => setData({ ...data, followup_date: date })}
+                                          showTimeSelect
+                                          timeFormat="hh:mm aa"
+                                          timeIntervals={5}
+                                          timeCaption="Time"
+                                          dateFormat="dd/MM/yyyy h:mm aa" // Custom format: day/month/year and 12-hour time
+                                          className="form-control"
+                                          placeholderText="Followup date"
+                                          name="followup_date"
+                                          id="followup_date"
+                                        />
+                                      </div>
+                                    {/* <div className="col-md-8 col-xs-8">
                                       <input
                                         onChange={(e) =>
                                           setdata({
                                             ...data,
                                             followup_date: e.target.value,
                                           })
-                                          
+
                                         }
                                         type="datetime-local"
                                         name="followup_date"
@@ -760,13 +825,13 @@ export default function Followupage() {
                                         required
                                         autoComplete="off"
                                       />
-                                    </div>
+                                    </div> */}
                                   </div>
                                   <div className="row status-bottom">
-                                    <div className="col-md-4 pd-top col-xs-4 col-4">
+                                    <div className="col-md-4 pd-top col-xs-4">
                                       <lable>Description</lable>
                                     </div>
-                                    <div className="col-md-8 col-xs-8 col-8">
+                                    <div className="col-md-8 col-xs-8">
                                       <textarea
                                         required
                                         className="form-control text-areasss"
@@ -777,7 +842,7 @@ export default function Followupage() {
                                             followup_desc: e.target.value,
                                           })
                                         }
-                                        
+
                                         value={data?.followup_desc}
                                         // value={followupDesc}
                                         // onChange={(e) =>
@@ -795,8 +860,8 @@ export default function Followupage() {
                                     </div>
                                   </div>
                                   <div className="row">
-                                    <div className="col-md-6 col-6">
-                                      <div className="add_calender">
+                                    <div className="col-md-12">
+                                      <div className="add_calender text-center">
                                         <div className="form-group">
                                           <label htmlFor="is_cal">
                                             Add to Calender &nbsp;&nbsp;
@@ -818,23 +883,11 @@ export default function Followupage() {
                                         </div>
                                       </div>
                                     </div>
-                                    <div className="col-md-6 col-xs-6 col-6">
-                                      <div className="max-widyhsSubmit">
-                                        <input
-                                          type="submit"
-                                          name="submit"
-                                          Value="Submit  "
-                                          className="btn btenss form-control btn-success"
-                                          autoComplete="off"
-                                          placeholder="Submit  "
-                                        />
-                                      </div>
-                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div className="row d-none">
+                            <div className="row">
                               <div className="col-md-12 col-xs-12">
                                 <div className="max-widyhsSubmit">
                                   <input
@@ -851,11 +904,8 @@ export default function Followupage() {
                           </form>
                         </div>
                       </div>
-
-
-
-                     {/* Nav tabs */}
-                     <ul className="nav nav-tabs mobiltabs bottom-border">
+                      {/* Nav tabs */}
+                      <ul className="nav nav-tabs mobiltabs bottom-border">
                         <li className="">
                           <a
                             href="#tab6"
@@ -898,7 +948,7 @@ export default function Followupage() {
                             data-toggle="tab"
                             aria-expanded="true"
                           >
-                            {/* <span className="tabnone">Attachment </span> */}
+                            <span className="tabnone">Attachment </span>
                             <i className="fa fa-paperclip" aria-hidden="true" />
                           </a>
                         </li>
@@ -1253,7 +1303,7 @@ export default function Followupage() {
                                       </div>
                                     </div>
                                     <div className="row">
-                                      <div className="col-md-4 col-4 pd-top">
+                                      <div className="col-md-4 pd-top">
                                         <div className="form-group">
                                           {" "}
                                           <label htmlFor="country">
@@ -1261,7 +1311,7 @@ export default function Followupage() {
                                           </label>
                                         </div>
                                       </div>
-                                      <div className="col-md-8 col-8">
+                                      <div className="col-md-8">
                                         <select
                                           name="country"
                                           value={localDetails.country || ""}
@@ -1291,7 +1341,7 @@ export default function Followupage() {
                                       </div>
                                     </div>
                                     <div className="row">
-                                      <div className="col-md-4 col-4 pd-top">
+                                      <div className="col-md-4 pd-top">
                                         <div className="form-group">
                                           {" "}
                                           <label htmlFor="full_address">
@@ -1299,7 +1349,7 @@ export default function Followupage() {
                                           </label>
                                         </div>
                                       </div>
-                                      <div className="col-md-8 col-8 cardes">
+                                      <div className="col-md-8 cardes">
                                         <textarea
                                           name="full_address"
                                           cols={40}
@@ -1313,13 +1363,13 @@ export default function Followupage() {
                                       </div>
                                     </div>
                                     <div className="row">
-                                      <div className="col-md-4 col-4 pd-top">
+                                      <div className="col-md-4 pd-top">
                                         <div className="form-group">
                                           {" "}
                                           <label htmlFor="state">State</label>
                                         </div>
                                       </div>
-                                      <div className="col-md-8 col-8">
+                                      <div className="col-md-8">
                                         <div className="form-group">
                                           <select
                                             name="state"
@@ -1358,8 +1408,8 @@ export default function Followupage() {
                                         Additional Information{" "}
                                       </div>
                                     </div>
-                                    <div className="row" style={{marginBottom: 10}}>
-                                      <div className="col-md-4 col-4 pd-top">
+                                    <div className="row">
+                                      <div className="col-md-4 pd-top">
                                         <div className="form-group">
                                           {" "}
                                           <label htmlFor="description">
@@ -1368,12 +1418,13 @@ export default function Followupage() {
                                         </div>
                                       </div>
                                       <div
-                                        className="col-md-8 col-8"
+                                        className="col-md-8"
+                                        style={{ padding: 0 }}
                                       >
                                         <textarea
                                           name="description"
                                           cols={40}
-                                          rows={2}
+                                          rows={3}
                                           value={localDetails.description || ""}
                                           onChange={(e) =>
                                             setLocalDetails({
@@ -1389,13 +1440,13 @@ export default function Followupage() {
                                     </div>
 
                                     <div className="row">
-                                      <div className="col-md-4 col-4 pd-top">
+                                      <div className="col-md-4 pd-top">
                                         <div className="form-group">
                                           {" "}
                                           <label htmlFor="city">City</label>
                                         </div>
                                       </div>
-                                      <div className="col-md-8 col-8">
+                                      <div className="col-md-8">
                                         <input
                                           type="text"
                                           name="city"
@@ -1415,7 +1466,7 @@ export default function Followupage() {
                                       </div>
                                     </div>
                                     <div className="row">
-                                      <div className="col-md-4 col-4 pd-top">
+                                      <div className="col-md-4 pd-top">
                                         <div className="form-group">
                                           {" "}
                                           <label htmlFor="pincode">
@@ -1423,7 +1474,7 @@ export default function Followupage() {
                                           </label>
                                         </div>
                                       </div>
-                                      <div className="col-md-8 col-8 cardese">
+                                      <div className="col-md-8 cardese">
                                         <input
                                           type="text"
                                           name="pincode"
@@ -1443,7 +1494,7 @@ export default function Followupage() {
                                       </div>
                                     </div>
                                     <div className="row d-none">
-                                      <div className="col-md-4 col-4 pd-top">
+                                      <div className="col-md-4 pd-top">
                                         <div className="form-group">
                                           <label htmlFor="assign_to_agent">
                                             Assign to agent
@@ -1451,7 +1502,7 @@ export default function Followupage() {
                                         </div>
                                       </div>
                                       <div
-                                        className="col-md-8 col-8 cardese"
+                                        className="col-md-8 cardese"
                                         style={{ padding: 0 }}
                                       >
                                         <select
@@ -1466,7 +1517,7 @@ export default function Followupage() {
                                               <option
                                                 selected={
                                                   foundObject?.assign_to_agent ===
-                                                  agents._id
+                                                    agents._id
                                                     ? "selected"
                                                     : ""
                                                 }
@@ -1480,13 +1531,13 @@ export default function Followupage() {
                                       </div>
                                     </div>
                                     <div className="row d-none">
-                                      <div className="col-md-4 col-4 pd-top">
+                                      <div className="col-md-4 pd-top">
                                         <div className="form-group">
                                           <label htmlFor="status">Status</label>
                                         </div>
                                       </div>
                                       <div
-                                        className="col-md-8 col-8"
+                                        className="col-md-8"
                                         style={{ padding: 0 }}
                                       >
                                         <div className="form-group">
@@ -1504,7 +1555,7 @@ export default function Followupage() {
                                                   <option
                                                     selected={
                                                       foundObject?.status ===
-                                                      status._id
+                                                        status._id
                                                         ? "selected"
                                                         : ""
                                                     }
@@ -1765,23 +1816,54 @@ export default function Followupage() {
                                                   ?.agent_name
                                               }
                                             </td>
-                                            <td>
+                                            {/* <td>
                                               {getdatetimeformate(
                                                 follow?.created
-                                              )}
-                                              {/* {follow?.followup_date && format(new Date(datafomate(follow?.created)), 'dd/MM/yy hh:mm:ss')} */}
+                                              )} */}
+                                            {/* {follow?.followup_date && format(new Date(datafomate(follow?.created)), 'dd/MM/yy hh:mm:ss')} */}
+                                            {/* </td> */}
+
+                                            <td>
+                                              {follow?.created && (() => {
+                                                const date = new Date(follow?.created);
+                                                const day = String(date.getDate()).padStart(2, '0'); // Ensure 2-digit day
+                                                const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-based, so add 1
+                                                const year = String(date.getFullYear()).slice(-2); // Get last 2 digits of year
+                                                const hours = date.getHours() % 12 || 12; // Convert to 12-hour format
+                                                const minutes = String(date.getMinutes()).padStart(2, '0'); // Ensure 2-digit minutes
+                                                const seconds = String(date.getSeconds()).padStart(2, '0'); // Ensure 2-digit seconds
+                                                const ampm = date.getHours() >= 12 ? 'PM' : 'AM'; // Determine AM/PM
+
+                                                return `${day}/${month}/${year} ${hours}:${minutes}:${seconds} `;
+                                              })()}
                                             </td>
+
                                             <td>
                                               {
                                                 follow?.status_details[0]
                                                   ?.status_name
                                               }
                                             </td>
-                                            <td>
+                                            {/* <td>
                                               {getdatetimeformate(
                                                 follow?.followup_date
-                                              )}
-                                              {/* {follow?.followup_date && format(new Date(datafomate(follow?.followup_date)), 'dd/MM/yy hh:mm:ss')} */}
+                                              )} */}
+                                            {/* {follow?.followup_date && format(new Date(datafomate(follow?.followup_date)), 'dd/MM/yy hh:mm:ss')} */}
+                                            {/* </td> */}
+
+                                            <td>
+                                              {follow?.followup_date && (() => {
+                                                const date = new Date(follow?.followup_date);
+                                                const day = String(date.getDate()).padStart(2, '0'); // Ensure 2-digit day
+                                                const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-based, so add 1
+                                                const year = String(date.getFullYear()).slice(-2); // Get last 2 digits of year
+                                                const hours = date.getHours() % 12 || 12; // Convert to 12-hour format
+                                                const minutes = String(date.getMinutes()).padStart(2, '0'); // Ensure 2-digit minutes
+                                                const seconds = String(date.getSeconds()).padStart(2, '0'); // Ensure 2-digit seconds
+                                                const ampm = date.getHours() >= 12 ? 'PM' : 'AM'; // Determine AM/PM
+
+                                                return `${day}/${month}/${year} ${hours}:${minutes}:${seconds} `;
+                                              })()}
                                             </td>
                                             <td>{follow?.followup_desc}</td>
                                           </tr>
@@ -1795,7 +1877,6 @@ export default function Followupage() {
                           </div>
                         </div>
                       </div>
-
                     </div>
                   </div>
                 </div>

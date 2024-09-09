@@ -213,10 +213,6 @@ export default function AllFollowupstableForActiveLeadForWtsp({ sendDataToParent
       })
     );
 
-
-
-
-
     doc.autoTable({
       head: [columns.map((column) => column.name)],
       body: tableDataForPDF,
@@ -362,23 +358,9 @@ export default function AllFollowupstableForActiveLeadForWtsp({ sendDataToParent
         // Handle errors
       });
   };
-  // const [carecters, setCarecters] = useState(0);
-  // const [row, setRow] = useState(1);
   
   const EnterMessage = (e) => {
     const message = e.target.value;
-  //   const characterCount = message.length;
-  //   setCarecters(characterCount);
-  
-  //   if (characterCount === 0) {
-  //     setRow(1);
-  //   } else if (characterCount <= 160) {
-  //     setRow(1);
-  //   } else {
-  //     const numberOfRows = Math.ceil(characterCount / 160);
-  //     setRow(numberOfRows);
-  //   }
-  
     setsendmessage({ ...sendmessage, message: message });
   };
 
@@ -460,7 +442,8 @@ export default function AllFollowupstableForActiveLeadForWtsp({ sendDataToParent
                 <div className="form-group">
                   <button
                     type="submit"
-                    className="btn btnes btn-block btn-success form-control "
+                    className="btn-ecport-pdf"
+                    style={{width: '100%', border:'0px'}}
                   >
                     Submit
                   </button>
@@ -470,7 +453,8 @@ export default function AllFollowupstableForActiveLeadForWtsp({ sendDataToParent
                 <div className="form-group">
                   <button
                     onClick={Refresh}
-                    className="btn btnes btn-block btn-success form-control "
+                    className="btn-advf"
+                    style={{width: '100%', border:'0px'}}
                   >
                     Refresh
                   </button>
@@ -487,8 +471,19 @@ export default function AllFollowupstableForActiveLeadForWtsp({ sendDataToParent
           <form onSubmit={DeleteSelected}>
             <div className="row">
            
-              <div className="col-md-3 ">
-              <label>Enter Message</label>
+              <div className="col-md-3">
+              <label>Select Template</label>
+                <div className="form-group">
+                  <select className="form-control">
+                    <option>Template 1</option>
+                    <option>Template 2</option>
+                    <option>Template 3</option>
+                    <option>Template 4</option>
+                  </select>
+                </div>
+              </div>
+              <div className="col-md-3">
+              <label>Message</label>
                 <div className="form-group">
                 <textarea
                     type="text"
@@ -501,21 +496,9 @@ export default function AllFollowupstableForActiveLeadForWtsp({ sendDataToParent
                   ></textarea>
                 </div>
               </div>
-              <div className="col-md-3">
-              <label>Video Url</label>
-                <div className="form-group">
-                <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Characters"
-                    name="Url"
-                    required
-                  />
-                </div>
-              </div>
               <div className="col-md-3 ">
                 <div className="form-group">
-                <label>image</label>
+                <label>Image</label>
                 <input
                     type="file"
                     className="form-control"
@@ -528,14 +511,9 @@ export default function AllFollowupstableForActiveLeadForWtsp({ sendDataToParent
               <div className="col-md-3 " style={{ marginTop: '25px' }}>
                 <div className="form-group">
                 <label></label>
-                <button className="btn  button-57 btn-sm btn-danger" >
-                Send Instant Wtsp Message  
-                  </button>
+                <button className="btn-ecport-pdf" style={{width: '100%', border:'0px'}}>Send</button>
                 </div>
               </div>
-              
-
-
             </div>
           </form>
         </div>

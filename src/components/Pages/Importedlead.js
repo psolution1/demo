@@ -88,7 +88,7 @@ function Importedlead() {
                               <p>Bulk Action</p>
                             </div>
                           </div>
-                          <div className="col-md-4 col-sm-3 col-xs-5 col-5 ex-g">
+                          <div className="col-md-4 col-sm-3 col-xs-12">
                             <select className="form-control"
                               onChange={e => setLeadStatus({ ...LeadStatus, status: e.target.value })}
                               name="status" id="status" required >
@@ -102,7 +102,7 @@ function Importedlead() {
                               })}
                             </select>
                           </div>
-                          <div className="col-md-3 col-sm-3 col-xs-4 col-4 ex-g">
+                          <div className="col-md-3 col-sm-3 col-xs-12">
                             <select className="form-control"
                               onChange={e => setLeadagent({ ...Leadagent, agent: e.target.value })}
                               name="agent" id="agent" required >
@@ -117,7 +117,7 @@ function Importedlead() {
                               })}
                             </select>
                           </div>
-                          <div className="col-md-2 col-sm-2 col-xs-3 col-3 pl-0 ex-g">
+                          <div className="col-md-2 col-sm-2 col-xs-12 pl-0">
                             <input type="submit" className="button-57" defaultValue="Submit" />
                           </div>
                         </div>
@@ -128,19 +128,19 @@ function Importedlead() {
                 <div className="col-md-5 col-xs-12">
                   <div className="advfilter-wrap">
                     <div className="row">
-                    <div className="col-md-4 col-sm-4 mobil-nns col-xs-4 col-4">
+                      <div className="col-md-4 col-sm-4 mobil-nns col-xs-4">
                         <div>
                           <button className="btn-advf" onClick={advanceserch}>
                             <i class="fa fa-search" aria-hidden="true"></i>
                             &nbsp;  Advance Filter </button>
                         </div>
                       </div>
-                      <div className="col-md-4 col-sm-4 col-xs-6 col-4">
+                      <div className="col-md-4 col-sm-4 col-xs-6">
                         <div>
                           <Link className="btn-advf" to="/Addlead"> <i className="fa fa-plus" />&nbsp;  Add Lead </Link>
                         </div>
                       </div>
-                      <div className="col-md-4 col-sm-4 col-xs-6 col-4">
+                      <div className="col-md-4 col-sm-4 col-xs-6">
                         {/* <div>
                           <Link className="btn-advf" to="/import-lead"> <i className="fa fa-download" />&nbsp; Import </Link>
                         </div> */}

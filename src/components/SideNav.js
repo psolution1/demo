@@ -327,7 +327,7 @@ function SideNav() {
                           </Link>
                         </li>
 
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                           <Link
                             to="/buysms"
                             className={
@@ -338,7 +338,7 @@ function SideNav() {
                           >
                             <p> SMS Pack</p>
                           </Link>
-                        </li>
+                        </li> */}
                       </ul>
                     </li>
                     )}
@@ -390,7 +390,7 @@ function SideNav() {
                           </Link>
                         </li>
 
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                           <Link
                             to="/BuysmsWtsp"
                             className={
@@ -401,9 +401,9 @@ function SideNav() {
                           >
                             <p> What's App Pack</p>
                           </Link>
-                        </li>
+                        </li> */}
 
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                           <Link
                             to="/BusinessWA"
                             className={
@@ -414,7 +414,7 @@ function SideNav() {
                           >
                             <p>Business WA</p>
                           </Link>
-                        </li>
+                        </li> */}
 
                         {/* <li className="nav-item">
                   <a   href="" className={activeItem === 'buysms' ? 'nav-link active' : 'nav-link'}
@@ -489,22 +489,22 @@ function SideNav() {
                     </li>
 
                     {/* <li className="nav-item">
-                  <a href="" className={activeItem === 'Report' ? 'nav-link active' : 'nav-link'}
-                    onClick={() => handleItemClick('Report')}>
-                    <i className="nav-icon far fa-file" />
-                    Report
-                  </a>
-                </li> */}
+                    <a href="" className={activeItem === 'Report' ? 'nav-link active' : 'nav-link'}
+                      onClick={() => handleItemClick('Report')}>
+                      <i className="nav-icon far fa-file" />
+                      Report
+                    </a>
+                  </li> */}
 
                     {/* for report  */}
-                    {/* <li className="nav-item">
+                    <li className="nav-item">
                       <Link
                         to="#"
                         className="nav-link"
                         onClick={() => handleParentClick("Report")}
                       >
                         <i className="nav-icon fas fa fa-user-md" />
-                        Report
+                        Report's
                         <i className="fas fa-angle-left right" />
                       </Link>
                       <ul
@@ -534,11 +534,11 @@ function SideNav() {
                                 : "nav-link"
                             }
                           >
-                            <p>Callreport</p>
+                            <p>Call Report</p>
                           </Link>
                         </li>
                       </ul>
-                    </li> */}
+                    </li>
                     {/* for report */}
 
                     <li className="nav-item">

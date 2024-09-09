@@ -8,6 +8,12 @@ import { getAllAgent } from "../features/agentSlice";
 import { useDispatch, useSelector } from "react-redux";
 function Header() {
   const dispatch = useDispatch();
+  const [leads, setleads] = useState([]);
+  const [status, setstatus] = useState();
+  const [leadcountdataa, setLeadCountDataa] = useState([]);
+  const [filterLeads, setFilterLeads] = useState([]);
+  const [filterleads, setfilterleads] = useState([]);
+  const [followupLeadCount, setFollowupLeadCount] = useState(0);
   const { agent } = useSelector((state) => state.agent);
   const apiUrl = process.env.REACT_APP_API_URL;
   const DBuUrl = process.env.REACT_APP_DB_URL;
@@ -25,6 +31,47 @@ function Header() {
       window.location.reload(false);
     }, 500);
   };
+
+  
+  
+  const getAllLead1 = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/get_All_Lead_Followup`, {
+        headers: {
+          "Content-Type": "application/json",
+          "mongodb-url": DBuUrl,
+        },
+      });
+
+      const leads = response?.data?.lead;
+      const filteredLeads = leads?.filter((lead) => lead?.type !== "excel");
+
+      const currentTime = new Date();
+      const leadsToCount = filteredLeads?.filter((lead) => {
+        const followupDate = new Date(lead?.followup_date);
+        const fiveMinutesBeforeFollowup = new Date(followupDate.getTime() - 5 * 60 * 1000);
+        return currentTime >= fiveMinutesBeforeFollowup;
+      });
+
+      const followupLeadCount = leadsToCount?.length || 0;
+
+      // Update lead count state for notification
+      setLeadCountDataa([{ name: 'Followup Leads', Value: followupLeadCount }]);
+      setFilterLeads(filteredLeads);
+      setFollowupLeadCount(followupLeadCount);
+
+      console.log('Number of leads to count:', followupLeadCount);
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllLead1();
+    const intervalId = setInterval(getAllLead1, 30000); // Fetch every 30 seconds
+    return () => clearInterval(intervalId);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,10 +128,34 @@ function Header() {
         </div>
 
         <ul className="navbar-nav ml-auto">
-          {/* Notifications Dropdown Menu */}
+          
           <li className="nav-item dropdown">
+              <Link className="nav-link" data-toggle="dropdown" to="#">
+                <i className="far fa-bell pe-7s-bell" />
+               
+                {followupLeadCount > 0 && (
+                  <span className="badge badge-warning navbar-badge">
+                    {followupLeadCount}
+                  </span>
+                )}
+              </Link>
+              <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                
+                {followupLeadCount > 0 && (
+                  <Link to="/followupleads" className="dropdown-item">
+                    <i className="fas fa-envelope mr-2" /> {followupLeadCount} Miss follow-ups
+                  </Link>
+                )}
+    
+  
+            </div>
+          </li>
+
+         
+          {/* <li className="nav-item dropdown">
             <Link className="nav-link" data-toggle="dropdown" to="#">
               <i className="far fa-bell pe-7s-bell" />
+             
               {Array.isArray(leadcountdata) && (
                 <span className="badge badge-warning navbar-badge">
                   {leadcountdata.reduce(
@@ -112,7 +183,7 @@ function Header() {
                   ) : null
                 )}
             </div>
-          </li>
+          </li> */}
 
           <li className="nav-item dropdown">
             <Link className="nav-link" data-toggle="dropdown" href="#">

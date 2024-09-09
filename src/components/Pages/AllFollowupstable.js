@@ -59,7 +59,7 @@ export default function AllFollowupstable({
         },
       });
       const leads = responce?.data?.lead
-      console.log(leads)
+      // console.log(leads)
 
       const filteredLeads = responce?.data?.lead?.filter(
         (lead) => lead?.type !== "excel"
@@ -395,22 +395,60 @@ export default function AllFollowupstable({
     //       : "",
     //   sortable: true,
     // },
+    // {
+    //   name: "Followup date",
+    //   selector: (row) => row?.followup_date ? getdatetimeformate(row?.followup_date) : "",
+    //   sortable: true,
+    //   cell: (row) => {
+    //     const followupDate = new Date(row?.followup_date);
+    //     const currentTime = new Date();
+  
+    //     // Extract date and time components
+    //     const followupDateOnly = new Date(followupDate.toDateString());
+    //     const currentDateOnly = new Date(currentTime.toDateString());
+  
+    //     const isDatePassed = followupDateOnly < currentDateOnly;
+    //     const isTimePassed = followupDate <= currentTime;
+    //     const isBlinking = isDatePassed || (followupDateOnly.getTime() === currentDateOnly.getTime() && isTimePassed);
+  
+    //     // Define blinking CSS
+    //     const blinkingStyles = {
+    //       whiteSpace: 'normal',
+    //       overflow: 'visible',
+    //       maxWidth: '200px',
+    //       animation: isBlinking ? 'blink 1s step-start infinite' : 'none',
+    //       backgroundColor: isBlinking ? 'red' : 'transparent',
+    //       color: isBlinking ? 'white' : 'inherit',
+    //       padding: '4px',
+    //       borderRadius: '4px',
+    //     };
+  
+    //     return (
+    //       <div
+    //         style={blinkingStyles}
+    //         title={row?.followup_date}
+    //       >
+    //         {row?.followup_date ? getdatetimeformate(row?.followup_date) : ""}
+    //       </div>
+    //     );
+    //   },
+    // },
     {
       name: "Followup date",
-      selector: (row) => row?.followup_date ? getdatetimeformate(row?.followup_date) : "",
+      selector: (row) => row?.followup_date ? formatFollowupDate(row?.followup_date) : "",
       sortable: true,
       cell: (row) => {
         const followupDate = new Date(row?.followup_date);
         const currentTime = new Date();
-  
+    
         // Extract date and time components
         const followupDateOnly = new Date(followupDate.toDateString());
         const currentDateOnly = new Date(currentTime.toDateString());
-  
+    
         const isDatePassed = followupDateOnly < currentDateOnly;
         const isTimePassed = followupDate <= currentTime;
         const isBlinking = isDatePassed || (followupDateOnly.getTime() === currentDateOnly.getTime() && isTimePassed);
-  
+    
         // Define blinking CSS
         const blinkingStyles = {
           whiteSpace: 'normal',
@@ -422,18 +460,19 @@ export default function AllFollowupstable({
           padding: '4px',
           borderRadius: '4px',
         };
-  
+    
         return (
           <div
             style={blinkingStyles}
             title={row?.followup_date}
           >
-            {row?.followup_date ? getdatetimeformate(row?.followup_date) : ""}
+            {row?.followup_date ? formatFollowupDate(row?.followup_date) : ""}
           </div>
         );
       },
     },
-  
+    
+    
     {
       name: <div style={{ display: "none" }}>Last Comment</div>,
       selector: (row) => row?.description,
@@ -479,6 +518,31 @@ export default function AllFollowupstable({
   `;
   document.head.appendChild(style);
 
+  // script for date time
+  function formatFollowupDate(dateString) {
+    const date = new Date(dateString);
+  
+    // Format day, month, and year
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = date.getFullYear();
+  
+    // Format hours and minutes
+    let hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+  
+    // Determine AM/PM
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12; // Convert from 24-hour to 12-hour format
+    hours = hours ? hours : 12; // The hour '0' should be '12'
+    const formattedHours = String(hours).padStart(2, '0');
+  
+    return `${day}/${month}/${year} ${formattedHours}:${minutes}:${seconds} ${ampm}`;
+  }
+  
+  
+  
 
 
   const userColumns = [
@@ -756,11 +820,11 @@ export default function AllFollowupstable({
   return (
     <div>
       <div className="row " style={{ display: dataFromParent }}>
-        <div className="advS">
+        <div className="col-md-12 advS">
           <form onSubmit={AdvanceSerch}>
             <div className="advfilter-wrap-box">
               <div className="row justify-content-md-center">
-                <div className="col-md-3 col-6">
+                <div className="col-md-3 ">
                   <div className="form-group">
                     <select
                       className="form-control"
@@ -786,7 +850,7 @@ export default function AllFollowupstable({
                     </select>
                   </div>
                 </div>
-                <div className="col-md-3 col-6">
+                <div className="col-md-3">
                   <div className="form-group">
                     <select
                       className="form-control"
@@ -805,7 +869,7 @@ export default function AllFollowupstable({
                     </select>
                   </div>
                 </div>
-                <div className="col-md-3 col-6">
+                <div className="col-md-3">
                   <div className="form-group">
                     <input
                       type="date"
@@ -818,7 +882,7 @@ export default function AllFollowupstable({
                     />
                   </div>
                 </div>
-                <div className="col-md-3 col-6">
+                <div className="col-md-3">
                   <div className="form-group">
                     <input
                       type="date"
@@ -832,7 +896,7 @@ export default function AllFollowupstable({
                   </div>
                 </div>
 
-                <div className="col-md-3 col-6">
+                <div className="col-md-3">
                   <div className="form-group">
                     <button
                       type="submit"
@@ -842,7 +906,7 @@ export default function AllFollowupstable({
                     </button>
                   </div>
                 </div>
-                <div className="col-md-3 col-6">
+                <div className="col-md-3">
                   <div className="form-group">
                     <button
                       onClick={Refresh}

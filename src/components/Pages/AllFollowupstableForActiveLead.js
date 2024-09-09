@@ -452,7 +452,8 @@ export default function AllFollowupstableForActiveLead({
                 <div className="form-group">
                   <button
                     type="submit"
-                    className="btn btnes btn-block btn-success form-control "
+                    className="btn-ecport-pdf"
+                    style={{width: '100%', border:'0px'}}
                   >
                     Submit
                   </button>
@@ -462,7 +463,8 @@ export default function AllFollowupstableForActiveLead({
                 <div className="form-group">
                   <button
                     onClick={Refresh}
-                    className="btn btnes btn-block btn-success form-control "
+                    className="btn-advf"
+                    style={{width: '100%', border:'0px'}}
                   >
                     Refresh
                   </button>
@@ -517,8 +519,8 @@ export default function AllFollowupstableForActiveLead({
               <div className="col-md-3 " style={{ marginTop: "25px" }}>
                 <div className="form-group">
                   <label></label>
-                  <button className="btn  button-57 btn-sm btn-danger">
-                    Send Instant SMS
+                  <button className="btn-ecport-pdf" style={{width: '100%', border:'0px'}}>
+                    Send
                   </button>
                 </div>
               </div>

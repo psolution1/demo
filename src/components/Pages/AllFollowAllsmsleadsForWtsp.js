@@ -450,7 +450,8 @@ export default function AllFollowAllsmsleadsForWtsp({ sendDataToParent, dataFrom
                 <div className="form-group">
                   <button
                     type="submit"
-                    className="btn btnes btn-block btn-success form-control "
+                    className="btn-ecport-pdf"
+                    style={{width: '100%', border:'0px'}}
                   >
                     Submit
                   </button>
@@ -460,7 +461,8 @@ export default function AllFollowAllsmsleadsForWtsp({ sendDataToParent, dataFrom
                 <div className="form-group">
                   <button
                     onClick={Refresh}
-                    className="btn btnes btn-block btn-success form-control "
+                    className="btn-advf"
+                    style={{width: '100%', border:'0px'}}
                   >
                     Refresh
                   </button>
@@ -476,9 +478,19 @@ export default function AllFollowAllsmsleadsForWtsp({ sendDataToParent, dataFrom
         <div className="col-md-12 advS">
           <form onSubmit={DeleteSelected}>
             <div className="row">
-           
+            <div className="col-md-3">
+              <label>Select Template</label>
+                <div className="form-group">
+                  <select className="form-control">
+                    <option>Template 1</option>
+                    <option>Template 2</option>
+                    <option>Template 3</option>
+                    <option>Template 4</option>
+                  </select>
+                </div>
+              </div>
               <div className="col-md-3 ">
-              <label>Enter Message</label>
+              <label>Message</label>
                 <div className="form-group">
                 <textarea
                     type="text"
@@ -491,21 +503,9 @@ export default function AllFollowAllsmsleadsForWtsp({ sendDataToParent, dataFrom
                   ></textarea>
                 </div>
               </div>
-              <div className="col-md-3">
-              <label>Video Url</label>
-                <div className="form-group">
-                <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Characters"
-                    name="Url"
-                    required
-                  />
-                </div>
-              </div>
               <div className="col-md-3 ">
                 <div className="form-group">
-                <label>image</label>
+                <label>Image</label>
                 <input
                     type="file"
                     className="form-control"
@@ -518,8 +518,8 @@ export default function AllFollowAllsmsleadsForWtsp({ sendDataToParent, dataFrom
               <div className="col-md-3 " style={{ marginTop: '25px' }}>
                 <div className="form-group">
                 <label></label>
-                <button className="btn  button-57 btn-sm btn-danger" >
-                  Send Instant Wtsp Message  
+                <button className="btn-ecport-pdf" style={{width: '100%', border:'0px'}}>
+                  Send
                   </button>
                 </div>
               </div>

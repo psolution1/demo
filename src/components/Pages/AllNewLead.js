@@ -529,11 +529,11 @@ setfilterleads(filteredLeads);
   return (
     <div>
       <div className="row " style={{ display: dataFromParent }}>
-        <div className="advS">
+        <div className="col-md-12 advS">
           <form onSubmit={AdvanceSerch}>
             <div className="advfilter-wrap-box">
               <div className="row justify-content-md-center">
-              <div className="col-md-3 col-6">
+                <div className="col-md-3 ">
                   <div className="form-group">
                     <select
                       className="form-control"
@@ -551,7 +551,7 @@ setfilterleads(filteredLeads);
                     </select>
                   </div>
                 </div>
-                <div className="col-md-3 col-6">
+                <div className="col-md-3">
                   <div className="form-group">
                     <select
                       className="form-control"
@@ -570,7 +570,7 @@ setfilterleads(filteredLeads);
                     </select>
                   </div>
                 </div>
-                <div className="col-md-3 col-6">
+                <div className="col-md-3">
                   <div className="form-group">
                     <input
                       type="date"
@@ -583,7 +583,7 @@ setfilterleads(filteredLeads);
                     />
                   </div>
                 </div>
-                <div className="col-md-3 col-6">
+                <div className="col-md-3">
                   <div className="form-group">
                     <input
                       type="date"
@@ -597,7 +597,7 @@ setfilterleads(filteredLeads);
                   </div>
                 </div>
 
-                <div className="col-md-3 col-6">
+                <div className="col-md-3">
                   <div className="form-group">
                     <button
                       type="submit"
@@ -607,7 +607,7 @@ setfilterleads(filteredLeads);
                     </button>
                   </div>
                 </div>
-                <div className="col-md-3 col-6">
+                <div className="col-md-3">
                   <div className="form-group">
                     <button
                       onClick={Refresh}
