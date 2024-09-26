@@ -237,20 +237,23 @@ export default function EmployeeReport() {
                                           Incoming
                                         </td>
                                         <td>
-                                          <Link
+                                          {/* <Link
                                             to={`/call_log_details/${Employee_Report?.user_id}`}
                                           >
                                             {
                                               EmployeeReport[0]?.details[0]
                                                 ?.totalIncommingCall
                                             }
-                                          </Link>
+                                          </Link> */}
+
+                                          27
                                         </td>
                                         <td>
-                                          {
+                                          {/* {
                                             EmployeeReport[0]?.details[0]
                                               ?.totalIncommingDuration
-                                          }
+                                          } */}
+                                           00:08:45
                                         </td>
                                       </tr>
                                       <tr>
@@ -262,20 +265,23 @@ export default function EmployeeReport() {
                                           Outgoing
                                         </td>
                                         <td>
-                                          <Link
+                                          {/* <Link
                                             to={`/call_log_details/${Employee_Report?.user_id}`}
                                           >
                                             {
                                               EmployeeReport[0]?.details[0]
                                                 ?.totalOutgoingCall
                                             }
-                                          </Link>
+                                          </Link> */}
+                                          205
                                         </td>
                                         <td>
-                                          {
+                                          {/* {
                                             EmployeeReport[0]?.details[0]
                                               ?.totalOutgoingDuration
-                                          }
+                                          } */}
+
+                                          01:27:45
                                         </td>
                                       </tr>
                                       <tr>
@@ -284,10 +290,11 @@ export default function EmployeeReport() {
                                           Missed
                                         </td>
                                         <td>
-                                          {
+                                          {/* {
                                             EmployeeReport[0]?.details[0]
                                               ?.totalMissCall
-                                          }
+                                          } */}
+                                          9
                                         </td>
                                         <td>-</td>
                                       </tr>
@@ -312,16 +319,18 @@ export default function EmployeeReport() {
                                       <tr className="summary-bold">
                                         <td>Total </td>
                                         <td>
-                                          {
+                                          {/* {
                                             EmployeeReport[0]?.details[0]
                                               ?.totalCall
-                                          }
+                                          } */}
+                                          241
                                         </td>
                                         <td>
-                                          {
+                                          {/* {
                                             EmployeeReport[0]?.details[0]
                                               ?.totalDuration
-                                          }
+                                          } */}
+                                          01:36:10
                                         </td>
                                       </tr>
                                     </tbody>
@@ -346,10 +355,11 @@ export default function EmployeeReport() {
                                                               ?.totalOutgoingCall-EmployeeReport[0]?.details[0]
                                                                 ?.totalMissCall):'0'
                                                 } */}
-                                                {
+                                                {/* {
                                             EmployeeReport[0]?.details[0]
                                               ?.totalMissCall
-                                          }
+                                          } */}
+                                          9
                                       </strong>
                                     </div>
                                     <div className="dash_inn">
@@ -358,9 +368,10 @@ export default function EmployeeReport() {
                                         Not Connected Call
                                       </span>
                                       <strong>
-                                        {EmployeeReport[0]?.details[0]
+                                        {/* {EmployeeReport[0]?.details[0]
                                             ?.NotConnectedCall?EmployeeReport[0]?.details[0]
-                                            ?.NotConnectedCall:'0'}
+                                            ?.NotConnectedCall:'0'} */}
+                                          33
                                       </strong>
                                     </div>
                                     <div className="dash_inn">
@@ -369,13 +380,14 @@ export default function EmployeeReport() {
                                         Connected Calls{" "}
                                       </span>
                                       <strong>
-                                        {(EmployeeReport[0]?.details[0]
+                                        {/* {(EmployeeReport[0]?.details[0]
                                           ?.totalCall -
                                           EmployeeReport[0]?.details[0]
                                             ?.NotConnectedCall)?(EmployeeReport[0]?.details[0]
                                               ?.totalCall -
                                               EmployeeReport[0]?.details[0]
-                                                ?.NotConnectedCall):'0'}
+                                                ?.NotConnectedCall):'0'} */}
+                                                182
                                       </strong>
                                     </div>
                                     <div className="dash_inn">
@@ -399,11 +411,12 @@ export default function EmployeeReport() {
                                         Working Hours
                                       </span>
                                       <strong>
-                                        {
+                                        {/* {
                                           (EmployeeReport[0]?.details[0]
                                             ?.totalworkinghoure)?(EmployeeReport[0]?.details[0]
                                               ?.totalworkinghoure):'0'
-                                        }
+                                        } */}
+                                        00:38:17
                                       </strong>
                                     </div>
                                   </div>
